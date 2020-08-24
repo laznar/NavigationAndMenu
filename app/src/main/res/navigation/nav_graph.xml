@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.g11.myapplication.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_memoryFragment"
+            app:destination="@id/memoryFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_sequenceFragment"
+            app:destination="@id/sequenceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memoryFragment"
+        android:name="com.g11.myapplication.MemoryFragment"
+        android:label="fragment_memory"
+        tools:layout="@layout/fragment_memory" >
+        <action
+            android:id="@+id/action_memoryFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sequenceFragment"
+        android:name="com.g11.myapplication.SequenceFragment"
+        android:label="fragment_sequence"
+        tools:layout="@layout/fragment_sequence" >
+        <action
+            android:id="@+id/action_sequenceFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>
