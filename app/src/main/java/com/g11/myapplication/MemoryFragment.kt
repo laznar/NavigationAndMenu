@@ -1,13 +1,16 @@
 package com.g11.myapplication
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_memory.*
@@ -16,6 +19,11 @@ import kotlinx.android.synthetic.main.fragment_memory.*
 class MemoryFragment : Fragment(), View.OnClickListener {
     lateinit var navController: NavController
     var intScore = 0
+    var record = 0
+    /*val datosAEnviar = Bundle()
+    var fragmento = MainFragment()
+    var fragmentomanager: FragmentManager = requireActivity().supportFragmentManager
+    var fragmentotransaction: FragmentTransaction = fragmentomanager.beginTransaction()*/
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,15 +43,40 @@ class MemoryFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         view.findViewById<Button>(R.id.back_button).setOnClickListener(this)
-        val images: MutableList<Int> = mutableListOf(R.drawable.luigi, R.drawable.zelda,R.drawable.digiball,R.drawable.link,R.drawable.marioverde,R.drawable.notagirl,R.drawable.luigi, R.drawable.zelda,R.drawable.digiball,R.drawable.link,R.drawable.marioverde,R.drawable.notagirl)
-        val buttons:Array<Button> = arrayOf(button1,button2,button3,button4,button5,button6,button7,button8,button9,button10,button11,button12)
+        val images: MutableList<Int> = mutableListOf(
+            R.drawable.luigi,
+            R.drawable.zelda,
+            R.drawable.digiball,
+            R.drawable.link,
+            R.drawable.marioverde,
+            R.drawable.notagirl,
+            R.drawable.luigi,
+            R.drawable.zelda,
+            R.drawable.digiball,
+            R.drawable.link,
+            R.drawable.marioverde,
+            R.drawable.notagirl
+        )
+        val buttons:Array<Button> = arrayOf(
+            button1,
+            button2,
+            button3,
+            button4,
+            button5,
+            button6,
+            button7,
+            button8,
+            button9,
+            button10,
+            button11,
+            button12
+        )
         val reverso = R.drawable.nintendoq
         var click = 0
         var finTurno = false
         var lastClick = -1
         var score = 100
         val duration = Toast.LENGTH_SHORT
-        var record = 0
         var puntActual = 0
         images.shuffle()
 
@@ -99,7 +132,7 @@ class MemoryFragment : Fragment(), View.OnClickListener {
                                 textView4.setText(record.toString())
                             }
                             val text1 = "Now you have "+puntActual.toString()+" points"
-                            val toast1 = Toast.makeText(activity,text1,duration)
+                            val toast1 = Toast.makeText(activity, text1, duration)
                             toast1.show()
                             reset()
                             if(puntActual>=100 && puntActual<200){
@@ -125,7 +158,7 @@ class MemoryFragment : Fragment(), View.OnClickListener {
                         }
                         puntActual = 0
                         val text2 = "Now you have 0 points"
-                        val toast2 = Toast.makeText(activity,text2,duration)
+                        val toast2 = Toast.makeText(activity, text2, duration)
                         toast2.show()
                         reset()
                     }
@@ -137,9 +170,18 @@ class MemoryFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.back_button -> {
-                navController!!.navigate(R.id.action_memoryFragment_to_mainFragment)
+                val result = record.toString()
+                // Use the Kotlin extension in the fragment-ktx artifact
+                setFragmentResult("requestKey", bundleOf("bundleKey" to result))
+                /*datosAEnviar.putInt("score", intScore)
+                fragmento.arguments = datosAEnviar
+                fragmentotransaction.replace(R.id.content_principal, fragmento)
+                fragmentotransaction.addToBackStack(null)
+                fragmentotransaction.commit()*/
+                navController.navigate(R.id.action_memoryFragment_to_mainFragment)
             }
         }
     }
+
 
 }

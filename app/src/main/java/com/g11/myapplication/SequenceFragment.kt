@@ -1,5 +1,6 @@
 package com.g11.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,18 +15,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
-package example.javatpoint.com.kotlinsharedpreference 
-import android.content.SharedPreferences  
+import android.content.SharedPreferences
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 
 class SequenceFragment : Fragment(), View.OnClickListener  {
     lateinit var navController: NavController
+    var puntActual = 0
 
-    private val sharedPrefFile = "kotlinsharedpreference"  
-    val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE) 
-    val editor =sharedPreferences.edit()
-    editor.clear()
-    editor.apply()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -99,7 +96,6 @@ class SequenceFragment : Fragment(), View.OnClickListener  {
         )
         val reverso = R.drawable.nintendoq
         val duration = Toast.LENGTH_SHORT
-        var puntActual = 0
         var intScore = 0
         images.shuffle()
         var n = 3
@@ -216,11 +212,8 @@ class SequenceFragment : Fragment(), View.OnClickListener  {
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.back_button2 -> {
-		val score:Int = intScore   
-                val editor:SharedPreferences.Editor =  sharedPreferences.edit()  
-                editor.putInt("score",score)  
-                editor.apply()  
-                editor.commit()  
+                val result2 = puntActual.toString()
+                setFragmentResult("requestKey", bundleOf("bundleKey2" to result2))
                 navController!!.navigate(R.id.action_sequenceFragment_to_mainFragment)
             }
         }
