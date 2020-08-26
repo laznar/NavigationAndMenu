@@ -15,10 +15,16 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+package example.javatpoint.com.kotlinsharedpreference 
+
 class SequenceFragment : Fragment(), View.OnClickListener  {
     lateinit var navController: NavController
 
-
+    private val sharedPrefFile = "kotlinsharedpreference"  
+    val sharedPreferences: SharedPreferences = this.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE) 
+    val editor =sharedPreferences.edit()
+    editor.clear()
+    editor.apply()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -209,6 +215,11 @@ class SequenceFragment : Fragment(), View.OnClickListener  {
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.back_button2 -> {
+		val score:Int = intScore   
+                val editor:SharedPreferences.Editor =  sharedPreferences.edit()  
+                editor.putInt("score",score)  
+                editor.apply()  
+                editor.commit()  
                 navController!!.navigate(R.id.action_sequenceFragment_to_mainFragment)
             }
         }
