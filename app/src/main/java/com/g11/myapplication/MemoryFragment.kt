@@ -16,9 +16,7 @@ import kotlinx.android.synthetic.main.fragment_memory.*
 class MemoryFragment : Fragment(), View.OnClickListener {
     lateinit var navController: NavController
     var intScore = 0
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
